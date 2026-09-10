@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "meta": {
+    "title_line1": "(1-9-2026).V.1",
+    "title_line2": "A.L. Hashm",
+    "footer_left": "Ahmed Abd Aoun",
+    "footer_right": "Timetable Maker",
+    "logo_path": "",
+    "day_color_bright": "#FFF200",
+    "day_color_pale": "#FDF6B2",
+    "cell_color": "#FFFDE7",
+    "row_color_a": "#CFF3F3",
+    "row_color_b": "#F5C242",
+    "grid_line_color": "#333333"
+  },
+  "periods": [
+    {
+      "id": 1,
+      "label": "1",
+      "start_time": "9:00",
+      "end_time": "10:00"
+    },
+    {
+      "id": 2,
+      "label": "2",
+      "start_time": "10:00",
+      "end_time": "11:00"
+    },
+    {
+      "id": 3,
+      "label": "3",
+      "start_time": "11:00",
+      "end_time": "12:00"
+    },
+    {
+      "id": 4,
+      "label": "4",
+      "start_time": "12:00",
+      "end_time": "1:00"
+    },
+    {
+      "id": 5,
+      "label": "5",
+      "start_time": "1:00",
+      "end_time": "2:00"
+    },
+    {
+      "id": 6,
+      "label": "6",
+      "start_time": "2:00",
+      "end_time": "3:00"
+    },
+    {
+      "id": 7,
+      "label": "7",
+      "start_time": "3:00",
+      "end_time": "4:00"
+    }
+  ],
+  "days": [
+    {
+      "id": 1,
+      "name": "Sunday",
+      "header_color": "#FDF6B2"
+    },
+    {
+      "id": 2,
+      "name": "Monday",
+      "header_color": "#FFF200"
+    },
+    {
+      "id": 3,
+      "name": "Tuesday",
+      "header_color": "#FDF6B2"
+    },
+    {
+      "id": 4,
+      "name": "Wednesday",
+      "header_color": "#FFF200"
+    },
+    {
+      "id": 5,
+      "name": "Thursday",
+      "header_color": "#FDF6B2"
+    }
+  ],
+  "entries": [
+    {
+      "id": 1,
+      "day_id": 3,
+      "period_id": 1,
+      "subject": "Translation into English I",
+      "hall": "115",
+      "group": "A.L. Hashm",
+      "section_label": "",
+      "section_hall": "",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 2,
+      "day_id": 1,
+      "period_id": 2,
+      "subject": "Translation into English I",
+      "hall": "124",
+      "group": "A.L. Hashm",
+      "section_label": "",
+      "section_hall": "",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 3,
+      "day_id": 2,
+      "period_id": 4,
+      "subject": "Translation into English I",
+      "hall": "124",
+      "group": "A.L. Hashm",
+      "section_label": "",
+      "section_hall": "",
+      "color": "#8E44AD"
+    },
+    {
+      "id": 4,
+      "day_id": 4,
+      "period_id": 4,
+      "subject": "Scientific Translation I",
+      "hall": "104",
+      "group": "A.L. Hashm",
+      "section_label": "",
+      "section_hall": "",
+      "color": "#C0392B"
+    },
+    {
+      "id": 5,
+      "day_id": 4,
+      "period_id": 5,
+      "subject": "Scientific Translation I",
+      "hall": "104",
+      "group": "A.L. Hashm",
+      "section_label": "",
+      "section_hall": "",
+      "color": "#C0392B"
+    },
+    {
+      "id": 6,
+      "day_id": 3,
+      "period_id": 6,
+      "subject": "Scientific Translation I",
+      "hall": "105",
+      "group": "A.L. Hashm",
+      "section_label": "",
+      "section_hall": "",
+      "color": "#C0392B"
+    },
+    {
+      "id": 7,
+      "day_id": 5,
+      "period_id": 6,
+      "subject": "Scientific Translation I",
+      "hall": "105",
+      "group": "A.L. Hashm",
+      "section_label": "",
+      "section_hall": "",
+      "color": "#C0392B"
+    },
+    {
+      "id": 8,
+      "day_id": 5,
+      "period_id": 1,
+      "subject": "Media Translation I",
+      "hall": "",
+      "group": "4.TR",
+      "section_label": "4.TR",
+      "section_hall": "106",
+      "color": "#F5CBA7"
+    },
+    {
+      "id": 9,
+      "day_id": 1,
+      "period_id": 5,
+      "subject": "Media Translation I",
+      "hall": "",
+      "group": "4.TR",
+      "section_label": "4.TR",
+      "section_hall": "103",
+      "color": "#F5CBA7"
+    },
+    {
+      "id": 10,
+      "day_id": 2,
+      "period_id": 5,
+      "subject": "Media Translation I",
+      "hall": "",
+      "group": "4.TR",
+      "section_label": "4.TR",
+      "section_hall": "113",
+      "color": "#F5CBA7"
+    },
+    {
+      "id": 11,
+      "day_id": 2,
+      "period_id": 6,
+      "subject": "Media Translation I",
+      "hall": "",
+      "group": "4.TR",
+      "section_label": "4.TR",
+      "section_hall": "113",
+      "color": "#F5CBA7"
+    }
+  ]
+}

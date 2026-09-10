@@ -1,0 +1,7 @@
+# Runtime dependencies for Timetable Maker
+#
+# PySide6 provides the GUI toolkit and the QPainter/QImage APIs used to
+# both render the on-screen timetable grid and export it as a high
+# resolution JPG/PNG — the same paint routine drives both, so exports
+# always match what's on screen exactly.
+PySide6>=6.6,<7
