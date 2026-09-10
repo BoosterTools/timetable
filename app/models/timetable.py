@@ -193,6 +193,7 @@ class Timetable:
     periods: list[Period] = field(default_factory=list)
     days: list[Day] = field(default_factory=list)
     entries: list[Entry] = field(default_factory=list)
+    subjects: list[str] = field(default_factory=list)  # saved names offered in the subject dropdown
 
     # ------------------------------------------------------------------ #
     @classmethod
@@ -225,6 +226,35 @@ class Timetable:
         return max((d.id for d in self.days), default=0) + 1
 
     # ------------------------------------------------------------------ #
+    # Subject catalog — a simple, loosely-coupled list of names offered in
+    # the subject dropdown. Entries store their own copy of the subject
+    # text (not a foreign key), so renaming/deleting a catalog entry only
+    # changes future suggestions and never risks altering or losing
+    # existing classes already on the grid.
+    # ------------------------------------------------------------------ #
+    def list_subjects(self) -> list[str]:
+        return sorted(self.subjects, key=str.lower)
+
+    def add_subject(self, name: str) -> None:
+        name = (name or "").strip()
+        if not name:
+            return
+        if not any(existing.lower() == name.lower() for existing in self.subjects):
+            self.subjects.append(name)
+
+    def rename_subject(self, old: str, new: str) -> None:
+        new = (new or "").strip()
+        if not new:
+            return
+        for i, existing in enumerate(self.subjects):
+            if existing.lower() == old.lower():
+                self.subjects[i] = new
+                return
+
+    def delete_subject(self, name: str) -> None:
+        self.subjects = [s for s in self.subjects if s.lower() != (name or "").lower()]
+
+    # ------------------------------------------------------------------ #
     def to_dict(self) -> dict:
         return {
             "version": 1,
@@ -232,6 +262,7 @@ class Timetable:
             "periods": [p.to_dict() for p in self.periods],
             "days": [d.to_dict() for d in self.days],
             "entries": [e.to_dict() for e in self.entries],
+            "subjects": list(self.subjects),
         }
 
     @classmethod
@@ -277,7 +308,27 @@ class Timetable:
             # grid rather than an unusable blank timetable with no rows.
             return cls.new_default()
 
-        return cls(meta=meta, periods=periods, days=days, entries=entries)
+        raw_subjects = data.get("subjects")
+        subjects: list[str] = []
+        if isinstance(raw_subjects, list):
+            for item in raw_subjects:
+                if not isinstance(item, str):
+                    continue
+                name = item.strip()
+                if name and not any(s.lower() == name.lower() for s in subjects):
+                    subjects.append(name)
+        else:
+            # Backward compatibility: files saved before this feature
+            # existed have no "subjects" key at all. Auto-populate the
+            # catalog from whatever subjects are already used on the grid,
+            # so existing timetables get a useful dropdown immediately
+            # instead of starting empty.
+            for entry in entries:
+                name = entry.subject.strip()
+                if name and not any(s.lower() == name.lower() for s in subjects):
+                    subjects.append(name)
+
+        return cls(meta=meta, periods=periods, days=days, entries=entries, subjects=subjects)
 
 
 def _alternate_day_color(index: int) -> str:
