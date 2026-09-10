@@ -7,6 +7,7 @@ from PySide6.QtGui import QColor
 from PySide6.QtWidgets import (
     QColorDialog,
     QComboBox,
+    QCompleter,
     QDialog,
     QDialogButtonBox,
     QFormLayout,
@@ -97,9 +98,19 @@ class EntryDialog(QDialog):
         form = QFormLayout()
         form.setSpacing(10)
 
-        self.subject_edit = QLineEdit(entry.subject if entry else "")
-        self.subject_edit.setPlaceholderText("e.g. Translation into English I")
-        form.addRow("Subject:", self.subject_edit)
+        self.subject_combo = QComboBox()
+        self.subject_combo.setEditable(True)
+        self.subject_combo.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
+        self.subject_combo.addItems(timetable.list_subjects())
+        self.subject_combo.setCurrentText(entry.subject if entry else "")
+        self.subject_combo.lineEdit().setPlaceholderText(
+            "Select a saved subject, or type a new one"
+        )
+        completer = self.subject_combo.completer()
+        if completer is not None:
+            completer.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+            completer.setFilterMode(Qt.MatchFlag.MatchContains)
+        form.addRow("Subject:", self.subject_combo)
 
         self.hall_edit = QLineEdit(entry.hall if entry else "")
         self.hall_edit.setPlaceholderText("e.g. 115")
@@ -168,9 +179,9 @@ class EntryDialog(QDialog):
         self.accept()
 
     def _on_save(self) -> None:
-        subject = self.subject_edit.text().strip()
+        subject = self.subject_combo.currentText().strip()
         if not subject:
-            QMessageBox.warning(self, "Subject required", "Please enter a subject name.")
+            QMessageBox.warning(self, "Subject required", "Please select or enter a subject name.")
             return
 
         target_day_id = self.day_combo.currentData()
@@ -183,6 +194,10 @@ class EntryDialog(QDialog):
                 "Choose a different day/period, or edit that class instead."
             )
             return
+
+        # Remember this subject (whether picked from the list or freshly
+        # typed) so it's available in the dropdown next time.
+        self.timetable.add_subject(subject)
 
         self.result_data = {
             "day_id": target_day_id,

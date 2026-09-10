@@ -21,6 +21,7 @@ from app.ui.entry_dialog import EntryDialog
 from app.ui.export_service import export_canvas_to_image
 from app.ui.meta_dialog import MetaDialog
 from app.ui.periods_dialog import PeriodsManagerDialog
+from app.ui.subjects_dialog import SubjectsManagerDialog
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -79,6 +80,7 @@ class MainWindow(QMainWindow):
         toolbar.addSeparator()
         add_button("Manage Periods...", self._on_manage_periods)
         add_button("Manage Days...", self._on_manage_days)
+        add_button("Manage Subjects...", self._on_manage_subjects)
         add_button("Header && Footer...", self._on_meta_clicked)
 
     # ------------------------------------------------------------------ #
@@ -155,6 +157,12 @@ class MainWindow(QMainWindow):
 
     def _on_manage_days(self) -> None:
         dialog = DaysManagerDialog(self.timetable, parent=self)
+        dialog.exec()
+        if dialog.changed:
+            self._save_and_refresh()
+
+    def _on_manage_subjects(self) -> None:
+        dialog = SubjectsManagerDialog(self.timetable, parent=self)
         dialog.exec()
         if dialog.changed:
             self._save_and_refresh()
